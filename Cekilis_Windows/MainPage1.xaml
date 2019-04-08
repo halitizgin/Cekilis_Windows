@@ -1,0 +1,159 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cekilis_Windows"
+    xmlns:common="using:Cekilis_Windows.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:Callisto.Controls"
+    x:Name="pageRoot"
+    x:Class="Cekilis_Windows.MainPage1"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d" Margin="0,-2,0,2">
+
+    <Page.Resources>
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <x:String x:Key="AppName">My Application</x:String>
+        <SolidColorBrush x:Key="Transparan" Color="Transparent"/>
+        <SolidColorBrush x:Key="BeyazaYakin" Color="#CCFFFFFF"/>
+    </Page.Resources>
+    <Page.TopAppBar>
+        <AppBar>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton x:Name="dilAppBarButton" HorizontalAlignment="Stretch" Icon="Keyboard" Label="Dil" VerticalAlignment="Stretch" Click="dilAppBarButton_Click"/>
+                    <AppBarButton x:Name="hakkindaAppBarButton" HorizontalAlignment="Stretch" Icon="Keyboard" Label="Hakkında" VerticalAlignment="Stretch" Click="hakkindaAppBarButton_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <AppBarButton x:Name="uygulamayiKapatAppBarButton" HorizontalAlignment="Left" Label="Uygulamayı Kapat" VerticalAlignment="Top" Icon="Cancel" Click="uygulamayiKapatAppBarButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
+    <Page.BottomAppBar>
+        <AppBar>
+            <Grid Loaded="Grid_Loaded">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton x:Name="kayitYoneticisiButtonApp" HorizontalAlignment="Left" Label="Kayıt Yöneticisi" VerticalAlignment="Top" FontSize="20" Click="kayitYoneticisiButtonApp_Click">
+                        <AppBarButton.Icon>
+                            <BitmapIcon UriSource="Assets/document-26.png" Margin="10,7" RenderTransformOrigin="0.567,0.467"/>
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <AppBarButton x:Name="ekleButton" HorizontalAlignment="Left" Label="Ekle" VerticalAlignment="Top" RenderTransformOrigin="0.465,0.522" FontSize="20" Icon="Add" Click="ekleButton_Click_1"/>
+                    <AppBarButton x:Name="silButton" HorizontalAlignment="Left" Label="Sil" VerticalAlignment="Top" FontSize="20" Icon="Remove" Click="silButton_Click"/>
+                    <AppBarButton x:Name="duzenleButton" HorizontalAlignment="Left" Label="Düzenle" VerticalAlignment="Top" Icon="Edit" Click="duzenleButton_Click"/>
+                    <AppBarButton x:Name="kaydetButton1" HorizontalAlignment="Left" Label="Kaydet" Margin="19,0,0,0" VerticalAlignment="Top" Icon="Save" FontSize="20" Click="kaydetButton1_Click"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="772.253982543945"/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="DefaultLayout"></VisualState>
+                <VisualState x:Name="PortraitLayout"></VisualState>
+                <VisualState x:Name="MinimalLayout"></VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <!-- Back button and page title -->
+        <Grid Margin="0,0,0,662.254" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Margin="39,36,0,32" Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+				Style="{StaticResource NavigationBackButtonNormalStyle}"
+				VerticalAlignment="Stretch"
+				AutomationProperties.Name="Back"
+				AutomationProperties.AutomationId="BackButton"
+				AutomationProperties.ItemType="Navigation Button" Click="backButton_Click"/>
+            <TextBlock x:Name="pageTitle" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+				IsHitTestVisible="false" TextWrapping="NoWrap" Margin="0,35,30,34" Text="Çekiliş"/>
+        </Grid>
+
+        <Controls:CustomDialog x:Name="customDialog" HorizontalAlignment="Left" Height="768" Title="Eklenecek katılımcıyı giriniz:" VerticalAlignment="Top" Width="1366" FontSize="36" BackButtonVisibility="Visible" Background="#FF1D1D1D" Margin="0,4,0,0" d:IsLocked="True">
+            <StackPanel>
+                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" Width="300" x:Name="textBox1" BorderBrush="Black" Foreground="White" TextChanged="textBox1_TextChanged_1" KeyDown="textBox1_KeyDown">
+                    <TextBox.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBox.Background>
+                </TextBox>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Background="{StaticResource Transparan}">
+                    <Button Content="Tamam" Width="90" x:Name="onaylaButton" Visibility="Visible" Background="{StaticResource Transparan}" Foreground="White" BorderBrush="White" Click="onaylaButton_Click"/>
+                    <Button Content="İptal" Width="90" x:Name="iptalButton" Visibility="Visible" Background="{StaticResource Transparan}" Foreground="White" BorderBrush="White" Click="iptalButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Controls:CustomDialog>
+        <Controls:CustomDialog x:Name="kayitYonetimi" HorizontalAlignment="Left" Height="768" Title="Gelişmiş Ekleme Seçenekleri" VerticalAlignment="Top" Width="1392" FontSize="36" BackButtonVisibility="Visible" Background="#FF1D1D1D" Margin="-26,0,0,0" d:IsLocked="True">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock x:Name="kayitlarBaslikTextBlock" Text="Kayıtlar" />
+                    <ListBox x:Name="kayilarListBox" FontSize="36" Height="460" Width="358" HorizontalAlignment="Center" DoubleTapped="kayilarListBox_DoubleTapped" BorderBrush="{StaticResource Transparan}" Background="{StaticResource BeyazaYakin}" Foreground="Black"/>
+                    <Button Content="Kaydet" Width="90" x:Name="kaydetButton" Visibility="Visible" Foreground="White" Click="kaydetButton_Click" BorderBrush="White" Background="{StaticResource Transparan}"/>
+                    <Button Content="Sil" Width="90" x:Name="kayitSilButton" Visibility="Visible" Foreground="White" Click="kayitSilButton_Click" BorderBrush="White" Background="{StaticResource Transparan}"/>
+                    <Button Content="Yükle" Width="90" x:Name="yukleButton" Visibility="Visible" Foreground="White" Click="yukleButton_Click" BorderBrush="White" Background="{StaticResource Transparan}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock x:Name="katilimcilarBaslikTextBlock" Text="Katılımcılar" HorizontalAlignment="Left" />
+                    <ListBox x:Name="suankiListBox" FontSize="36" Width="358" Foreground="Black" BorderBrush="{StaticResource Transparan}" Height="460"/>
+                </StackPanel>
+            </StackPanel>
+        </Controls:CustomDialog>
+        <TextBlock x:Name="kazananlarLabel" Margin="1108,54,74,669.254" TextWrapping="Wrap" Text="Kazananlar:" FontSize="36"/>
+        <RadioButton x:Name="tekliRadioButton" Content="Tekli" Margin="874,537,0,0" FontSize="14.667" IsChecked="False" Width="76" Height="32.7459716796875" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+        <RadioButton x:Name="takimliRadioButton" Content="Takımlı" Margin="984,537,0,0" FontSize="14.667" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBlock x:Name="yuzdeLabel" Margin="321,534,0,0" TextWrapping="Wrap" FontSize="36" Text="%0" FontWeight="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock x:Name="kazanacakLabel" Margin="1098,515,88,234.254" TextWrapping="Wrap" Text="Kazanacak sayısı:" FontSize="20" FontWeight="Black"/>
+        <RichEditBox x:Name="hizliRichEditBox" HorizontalAlignment="Left" Margin="0,145,0,0" VerticalAlignment="Top" Height="387" Width="366" TextChanged="hizliRichEditBox_TextChanged" FontSize="36" SelectionChanged="hizliRichEditBox_SelectionChanged" KeyUp="hizliRichEditBox_KeyUp" Visibility="Collapsed"/>
+        <Controls:NumericUpDown x:Name="kazanacakSayisi" Margin="1118.776,550,120.567,183" TextWrapping="Wrap" Text="0" IsReadOnly="True" Maximum="0" RenderTransformOrigin="3.008,2.737" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Controls:NumericUpDown.RenderTransform>
+                <CompositeTransform Rotation="0.778"/>
+            </Controls:NumericUpDown.RenderTransform>
+        </Controls:NumericUpDown>
+        <ToggleSwitch x:Name="hizliCheckBox" Header="" HorizontalAlignment="Stretch" Margin="469,510,484,191.254" VerticalAlignment="Stretch" OffContent="Hızlı Düzenleme" OnContent="Hızlı Düzenleme" FontSize="36" FontFamily="Global User Interface" Toggled="hizliCheckBox_Toggled" FontWeight="Bold"/>
+        <Button x:Name="cekilisYapButton" Content="Çekiliş Yap" HorizontalAlignment="Stretch" Margin="12,628,105,77.254" VerticalAlignment="Stretch" FontSize="20" BorderBrush="{x:Null}" Foreground="White" RequestedTheme="Dark" Click="cekilisYapButton_Click" IsEnabled="False">
+            <Button.Background>
+                <SolidColorBrush Color="Gray" Opacity="0.4"/>
+            </Button.Background>
+        </Button>
+        <TextBlock x:Name="katilimcilarBaslikTextBlocks" x:FieldModifier="Public" TextWrapping="Wrap" FontSize="36" Margin="6,54,1177,653.254" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}">
+        	<Run Text="Katılımcılar"/>
+        	<Run Text=":"/>
+        </TextBlock>
+        <TextBlock x:Name="adet" Margin="26,538,0,0" TextWrapping="Wrap" FontSize="36" Text="0" FontWeight="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock x:Name="aciklamaLabel" HorizontalAlignment="Left" Margin="26,714,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="(*) Tüm çıkma ihtimalleri aynı." FontSize="25"/>
+        <ListBox x:Name="katilimcilar" HorizontalAlignment="Left" Height="387" Margin="6,97,0,0" SelectionMode="Multiple" VerticalAlignment="Top" Width="366" RenderTransformOrigin="0.44,0.55" SelectionChanged="katilimcilar_SelectionChanged" Background="{StaticResource BeyazaYakin}" DataContextChanged="katilimcilar_DataContextChanged"/>
+        <RichEditBox x:Name="kazananlarRichBox" Margin="994,97,10,288.254" FontSize="36" PlaceholderText="" FontFamily="Global User Interface" Height="387" Width="362" TextWrapping="NoWrap"/>
+    </Grid>
+</Page>

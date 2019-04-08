@@ -1,0 +1,39 @@
+﻿<SettingsFlyout
+    x:Class="Cekilis_Windows.DilAyarlari"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cekilis_Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="Dil Ayarları"
+    d:DesignWidth="346" Loaded="SettingsFlyout_Loaded" Unloaded="SettingsFlyout_Unloaded">
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        <!-- Section 1 header -->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- Section 1 body -->
+
+            <!-- Section 1 header -->
+
+            <!-- Section 1 header -->
+            <TextBlock x:Name="varsayilanDilTextBlock" Style="{StaticResource TitleTextBlockStyle}" Text="Dil Seçiminiz:" Height="23" Width="238" FontSize="17" />
+
+        </StackPanel>
+        <ComboBox x:Name="dilComboBox" Width="233" SelectedIndex="0" FontSize="17">
+            <ComboBoxItem Content="Türkçe" FontSize="17"/>
+            <ComboBoxItem Content="English"/>
+        </ComboBox>
+        <Button x:Name="dilAyariKaydetButton" Content="Kaydet" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="dilAyariKaydetButton_Click" Height="67" Width="240" FontSize="17"/>
+
+        <!-- The StackPanel(s) below define individual content sections -->
+
+        <!-- Content Section 1-->
+
+        <!-- Define more Content Sections below as necessary -->
+
+    </StackPanel>
+</SettingsFlyout>
